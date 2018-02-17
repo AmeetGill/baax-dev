@@ -8,7 +8,7 @@ const User = mongoose.model('users');
 passport.serializeUser((user,done)=>{
   done(null,user.id);
 });
-
+// hey this ust to coomit
 passport.deserializeUser((id,done)=>{
   User.findById(id)
     .then((user =>{

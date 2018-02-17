@@ -6,7 +6,7 @@ module.exports = (app) => {
         scope:['profile','email']
     })
   );
-
+// hey this ust to coomit
   app.get('/auth/google/callback',
     passport.authenticate('google')
   );

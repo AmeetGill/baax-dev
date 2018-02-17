@@ -6,5 +6,5 @@ const userSchema = new Schema({
     googleId:String,
     facebookId:String
 });
-
+// hey this ust to coomit
 mongoose.model('users',userSchema);
