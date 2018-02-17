@@ -2,6 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const keys = require('../config/keys');
+//console.log(keys);
 const mongoose = require('mongoose');
 const User = mongoose.model('users');
 
@@ -46,7 +47,7 @@ passport.use(
     callbackURL:"http://localhost:5000/auth/facebook/callback"
   },
   (accessToken,refreshToken,profile,done) => {
-    console.log(profile);
+    //console.log(profile);
     User.findOne({facebookId:profile.id})
       .then((existingUser) => {
         if(existingUser){

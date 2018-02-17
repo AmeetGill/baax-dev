@@ -1,9 +1,11 @@
-
+let keys = null;
 if(process.env.NODE_ENV==='production'){
-  module.export = require('./prod');
+  keys = require('./prod');
 }
 else {
-  module.export = require('./dev');
+  keys = require('./dev');
 }
+
+module.exports = keys;
 
 // hey this ust to coomit
