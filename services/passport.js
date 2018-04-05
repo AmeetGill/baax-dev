@@ -10,11 +10,10 @@ passport.serializeUser((user,done)=>{
   done(null,user.id);
 });
 // hey this ust to coomit
-passport.deserializeUser((id,done)=>{
-  User.findById(id)
-    .then((user =>{
-      done(null,user);
-    }));
+passport.deserializeUser(
+  async (id,done) => {
+  const user = await User.findById(id)
+  return done(null,user);
 });
 
 passport.use(
@@ -23,19 +22,15 @@ passport.use(
     clientSecret:keys.googleClientSecret,
     callbackURL:'/auth/google/callback'
   },
-  (accessToken,refreshToken,profile,done) => {
-    User.findOne({googleId:profile.id})
-      .then((existingUser) => {
+  async (accessToken,refreshToken,profile,done) => {
+    const existingUser = await User.findOne({googleId:profile.id})
         if(existingUser){
             // user already exist in the data base
-            done(null,existingUser);
+            return done(null,existingUser);
         }
-        else{
-            new User({googleId:profile.id})
-              .save()
-              .then(user => done(null,user));
-        }
-      })
+
+            const user = await new User({googleId:profile.id}).save();
+              done(null,user);
 
   })
 );
@@ -46,21 +41,13 @@ passport.use(
     clientSecret:keys.facebookClientSecret,
     callbackURL:"http://localhost:5000/auth/facebook/callback"
   },
-  (accessToken,refreshToken,profile,done) => {
+  async (accessToken,refreshToken,profile,done) => {
     //console.log(profile);
-    User.findOne({facebookId:profile.id})
-      .then((existingUser) => {
+    const existingUser = await User.findOne({facebookId:profile.id})
         if(existingUser){
-          done(null,existingUser);
+          return done(null,existingUser);
         }
-        else{
-          console.log(profile);
-          new User({facebookId:profile.id})
-            .save()
-            .then((user) => {
-              done(null,user)
-            });
-        }
-      })
+        const user = await new User({facebookId:profile.id}).save();
+        done(null,user);
   })
 );

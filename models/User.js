@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
     googleId:String,
-    facebookId:String
+    facebookId:String,
+    credits:{type : Number,default:0}
 });
-// hey this ust to coomit
+// hey thifgs ust to coomit
 mongoose.model('users',userSchema);
